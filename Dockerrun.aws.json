@@ -1,0 +1,57 @@
+{
+  "AWSEBDockerrunVersion": "2",
+  "containerDefinitions": [
+    {
+      "essential": true,
+      "image": "031061765661.dkr.ecr.us-east-2.amazonaws.com/hilton-api-demo:latest",
+      "environment": [
+        {
+          "name": "MONGO_DB_PATH",
+          "value": "mongodb://mongodb/app"
+        },
+        {
+          "name": "PORT",
+          "value": "3000"
+        }
+      ],
+      "links": [
+        "mongodb"
+      ],
+      "memoryReservation": 256,
+      "name": "app",
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 80
+        }
+      ]
+    },
+    {
+      "essential": true,
+      "image": "mongo",
+      "mountPoints": [
+        {
+          "containerPath": "/data/db",
+          "sourceVolume": "_Data"
+        }
+      ],
+      "memoryReservation": 256,
+      "name": "mongodb",
+      "portMappings": [
+        {
+          "containerPort": 27017,
+          "hostPort": 27017
+        }
+      ]
+    }
+  ],
+  "family": "",
+  "volumes": [
+    {
+      "host": {
+        "sourcePath": "data"
+      },
+      "name": "_Data"
+    }
+  ]
+}

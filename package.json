@@ -1,21 +1,32 @@
 {
-  "name": "hilton-demo-api",
-  "version": "1.0.0",
+  "name": "hilton-api-demo",
+  "version": "0.0.8",
   "author": "Ben Tatum",
   "license": "MIT",
+  "config": {
+    "docker": {
+      "repo": "031061765661.dkr.ecr.us-east-2.amazonaws.com",
+      "image": "hilton-api-demo"
+    }
+  },
   "scripts": {
-    "start": "npm run serve",
+    "start": "yarn serve",
     "start:dev": "concurrently \"mongod\" \"nodemon src/server.js --exec babel-node\" ",
     "build": "rm -rf dist && babel src -d dist",
-    "serve": "node src/server.js"
+    "serve": "node dist/server.js",
+    "dockerize": "yarn docker:login && yarn docker:build && yarn docker:tag && yarn docker:push && yarn docker:tag-latest && yarn docker:push-latest",
+    "docker:build": "docker build -t $npm_package_config_docker_image:$npm_package_version -t $npm_package_config_docker_image:latest .",
+    "docker:tag": "docker tag $npm_package_config_docker_image $npm_package_config_docker_repo/$npm_package_config_docker_image:$npm_package_version",
+    "docker:tag-latest": "docker tag $npm_package_config_docker_image $npm_package_config_docker_repo/$npm_package_config_docker_image:latest",
+    "docker:push": "docker push $npm_package_config_docker_repo/$npm_package_config_docker_image:$npm_package_version",
+    "docker:push-latest": "docker push $npm_package_config_docker_repo/$npm_package_config_docker_image:latest",
+    "docker:login": "eval $(aws ecr get-login --no-include-email --profile bentatum)",
+    "deploy": "eb deploy --label v$npm_package_version --verbose --profile bentatum"
   },
   "dependencies": {
-    "concurrently": "^3.5.1",
-    "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.2",
-    "mongoose": "^5.0.15",
-    "nodemon": "^1.14.11"
+    "mongoose": "^5.0.15"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.42",
@@ -23,6 +34,8 @@
     "@babel/node": "^7.0.0-beta.42",
     "@babel/preset-env": "^7.0.0-beta.42",
     "@babel/preset-stage-1": "^7.0.0-beta.40",
-    "@babel/register": "^7.0.0-beta.40"
+    "@babel/register": "^7.0.0-beta.40",
+    "concurrently": "^3.5.1",
+    "nodemon": "^1.14.11"
   }
 }

@@ -20,12 +20,8 @@ const app = express()
 /* Establish routes */
 app.get('/reservation/:id', async (req, res) => {
   try {
-    Reservation.findById(req.params.id, (err, data) => {
-      if (err) {
-        throw new Error()
-      }
-      res.json(data)
-    })
+    const data = await Reservation.findById(req.params.id)
+    res.json(data)
   } catch (err) {
     res.json(err)
   }
@@ -33,12 +29,8 @@ app.get('/reservation/:id', async (req, res) => {
 
 app.post('/reservation', async (req, res) => {
   try {
-    Reservation.create(req.body, (err, data) => {
-      if (err) {
-        throw new Error()
-      }
-      res.json(data)
-    })
+    const data = await Reservation.create(req.body)
+    res.json(data)
   } catch (err) {
     res.json(err)
   }
@@ -46,12 +38,8 @@ app.post('/reservation', async (req, res) => {
 
 app.get('/reservations', async (req, res) => {
   try {
-    Reservation.find(req.query, (err, data) => {
-      if (err) {
-        throw new Error()
-      }
-      res.json(data)
-    })
+    const data = await Reservation.find(req.query)
+    res.json(data)
   } catch (err) {
     res.json(err)
   }

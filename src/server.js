@@ -27,7 +27,7 @@ app.use(
 
 app.get(
   '/graphiql',
-  graphiqlExpress({ endpointURL: '/api/v1/graphql' })
+  graphiqlExpress({ endpointURL: '/graphql' })
 )
 
 /* Start */

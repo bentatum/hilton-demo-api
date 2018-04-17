@@ -1,0 +1,14 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": 5
+        },
+        "useBuiltIns": "usage"
+      }
+    ],
+    "@babel/preset-stage-1"
+  ]
+}

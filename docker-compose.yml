@@ -1,0 +1,22 @@
+version: "2"
+services:
+  mongodb:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
+    expose:
+      - '27017'
+  app:
+    container_name: app
+    restart: always
+    build: .
+    ports:
+      - "3000:3000"
+    links:
+      - mongodb
+    environment:
+      - MONGO_DB_PATH=mongodb://mongodb/app
+      - PORT=3000

@@ -3,6 +3,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 import { Reservation } from './models'
+import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
 
 mongoose.Promise = global.Promise
 
@@ -17,45 +18,17 @@ const app = express()
   /* Support Url-encoded bodies */
   .use(bodyParser.urlencoded({ extended: true }))
 
-/* Establish routes */
-app.get('/reservation/:id', async (req, res) => {
-  try {
-    Reservation.findById(req.params.id, (err, data) => {
-      if (err) {
-        throw new Error()
-      }
-      res.json(data)
-    })
-  } catch (err) {
-    res.json(err)
-  }
-})
+app.use(
+  '/graphql',
+  graphqlExpress(req => ({
+    schema: require('./graphql').default
+  }))
+)
 
-app.post('/reservation', async (req, res) => {
-  try {
-    Reservation.create(req.body, (err, data) => {
-      if (err) {
-        throw new Error()
-      }
-      res.json(data)
-    })
-  } catch (err) {
-    res.json(err)
-  }
-})
-
-app.get('/reservations', async (req, res) => {
-  try {
-    Reservation.find(req.query, (err, data) => {
-      if (err) {
-        throw new Error()
-      }
-      res.json(data)
-    })
-  } catch (err) {
-    res.json(err)
-  }
-})
+app.get(
+  '/graphiql',
+  graphiqlExpress({ endpointURL: '/api/v1/graphql' })
+)
 
 /* Start */
 app.listen(process.env.PORT, () =>

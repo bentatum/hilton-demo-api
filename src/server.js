@@ -4,6 +4,7 @@ import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 import { Reservation } from './models'
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
+import cors from 'cors'
 
 mongoose.Promise = global.Promise
 
@@ -17,6 +18,8 @@ const app = express()
   .use(bodyParser.json())
   /* Support Url-encoded bodies */
   .use(bodyParser.urlencoded({ extended: true }))
+  /* Enable cross origin resource sharing */
+  .use(cors())
 
 app.use(
   '/graphql',

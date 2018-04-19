@@ -18,7 +18,9 @@ export default makeExecutableSchema({
         departureDate: String
       ): [Reservation]
 
-      reservationById(id: ID!): Reservation
+      reservationById(
+        id: ID!
+      ): Reservation
     }
 
     type Mutation {
@@ -27,6 +29,18 @@ export default makeExecutableSchema({
         hotelName: String!
         arrivalDate: String!
         departureDate: String!
+      ): Reservation
+
+      deleteReservation(
+        id: ID!
+      ): Reservation
+
+      updateReservation(
+        id: ID!
+        name: String
+        hotelName: String
+        arrivalDate: String
+        departureDate: String
       ): Reservation
     }
   `

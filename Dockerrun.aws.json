@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "essential": true,
-      "image": "031061765661.dkr.ecr.us-east-2.amazonaws.com/hilton-api-demo:latest",
+      "image": "031061765661.dkr.ecr.us-east-1.amazonaws.com/hilton-api-demo:latest",
       "environment": [
         {
           "name": "MONGO_DB_PATH",

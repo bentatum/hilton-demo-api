@@ -5,7 +5,7 @@
   "license": "MIT",
   "config": {
     "docker": {
-      "repo": "031061765661.dkr.ecr.us-east-2.amazonaws.com",
+      "repo": "031061765661.dkr.ecr.us-east-1.amazonaws.com",
       "image": "hilton-api-demo"
     }
   },
@@ -20,8 +20,8 @@
     "docker:tag-latest": "docker tag $npm_package_config_docker_image $npm_package_config_docker_repo/$npm_package_config_docker_image:latest",
     "docker:push": "docker push $npm_package_config_docker_repo/$npm_package_config_docker_image:$npm_package_version",
     "docker:push-latest": "docker push $npm_package_config_docker_repo/$npm_package_config_docker_image:latest",
-    "docker:login": "eval $(aws ecr get-login --no-include-email --profile bentatum)",
-    "deploy": "eb deploy --label v$npm_package_version --verbose --profile bentatum"
+    "docker:login": "eval $(aws ecr get-login --no-include-email --profile bentatum --region us-east-1)",
+    "deploy": "eb deploy --label v$npm_package_version --verbose --profile bentatum --region us-east-1"
   },
   "dependencies": {
     "dotenv": "^5.0.1",

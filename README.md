@@ -2,7 +2,7 @@
 
 There are multiple branches for your consideration.
 
-#### GraphQL
+#### [GraphQL](https://github.com/bentatum/hilton-demo-api/tree/graphql)
 
 I saw GraphQL mentioned in the job description, I thought it might be helpful to see this api implemented as a GraphQL endpoint.
 
